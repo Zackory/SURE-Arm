@@ -3,6 +3,7 @@ import time
 import pygame
 # Requires PyBluez
 import bluetooth
+# import serial
 
 class Button:
     A = 0
@@ -26,6 +27,8 @@ port = 1
 blue = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
 blue.connect((macAddr, port))
 print 'Bluetooth connection established.'
+
+# ser = serial.Serial('COM6', 9600, timeout=0.1)
 
 done = False
 base = 90
@@ -79,6 +82,7 @@ while not done:
         forearm += axis(Axis.RThumbY)*5
 
     time.sleep(0.05)
+    # ser.write('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
     blue.send('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
 
 joystick.quit()

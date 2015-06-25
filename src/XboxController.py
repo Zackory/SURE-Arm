@@ -70,10 +70,10 @@ class XboxController(threading.Thread):
     class PyGameAxis():
         LTHUMBX = 0
         LTHUMBY = 1
-        RTHUMBX = 2
-        RTHUMBY = 3
-        RTRIGGER = 4
-        LTRIGGER = 5
+        RTHUMBX = 3
+        RTHUMBY = 4
+        RTRIGGER = 5
+        LTRIGGER = 2
 
     #pygame constants for the buttons of the xbox controller
     class PyGameButtons():
@@ -326,7 +326,7 @@ class XboxController(threading.Thread):
     #turns the trigger value into something sensible and scales it
     def _sortOutTriggerValue(self, value):
         #trigger goes -1 to 1 (-1 is off, 1 is full on, half is 0) - I want this to be 0 - 1
-        value = max(0,(value + 1) / 2)
+        # value = max(0,(value + 1) / 2)
         #scale the value
         value = value * self.scale
         return value

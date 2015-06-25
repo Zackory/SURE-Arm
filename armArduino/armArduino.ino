@@ -2,7 +2,10 @@
 
 Servo servo;
 
-int angle = 0;
+int base = 90;
+int arm = 90;
+int forearm = 90;
+int gripper = 25;
 
 void setup() 
 { 
@@ -13,16 +16,27 @@ void setup()
 
 void loop() 
 { 
-  if(Serial.available()){ // only send data back if data has been sent
-    // char inByte = Serial.read(); // read the incoming data
-    int temp = Serial.parseInt();
-    if (temp >= 0) {
-      angle = temp;
-      Serial.println(angle); // send the data back in a new line so that it is not all one long line
-    }
+  if(Serial.available()){
+    // char inByte = Serial.read();
+    // int temp = Serial.read();
+    int baseTemp = Serial.parseInt();
+    int armTemp = Serial.parseInt();
+    int forearmTemp = Serial.parseInt();
+    int gripperTemp = Serial.parseInt();
+    if (baseTemp > 0)
+      base = baseTemp;
+    if (armTemp > 0)
+      arm = armTemp;
+    if (forearmTemp > 0)
+      forearm = forearmTemp;
+    if (gripperTemp > 0)
+      gripper = gripperTemp;
+    String comma = ", ";
+    String total = base + comma + arm + comma + forearm + comma + gripper;
+    Serial.println(total);
   }
   
-  servo.write(angle);
+  servo.write(gripper);
   // delay(15);
 
 }

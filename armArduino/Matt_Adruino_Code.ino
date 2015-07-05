@@ -13,6 +13,8 @@ int gripper = 25;
 int leftMotorPin = 5;
 int rightMotorPin = 9;
 int leftMotor = 0;
+int leftMotor_Cont_1= 2;
+int rightMotor_Cont_1= 4;
 int rightMotor = 0;
 
 void setup()
@@ -23,6 +25,8 @@ void setup()
     forearmServo.attach(10);
     gripperServo.attach(11);
     pinMode(leftMotorPin, OUTPUT);
+    pinMode(leftMotor_Cont_1, OUTPUT);
+    pinMode(leftMotor_Cont_2, OUTPUT);
     pinMode(rightMotorPin, OUTPUT);
 }
 
@@ -47,10 +51,12 @@ void loop()
             gripper = gripperTemp;
         if (leftMotorTemp > 0)
             leftMotor = leftMotorTemp;
+            digitalWrite(leftMotor_Cont_1, HIGH);
+            digitalWrite(leftMotor_Cont_2, LOW);
         if (rightMotorTemp > 0)
             rightMotor = rightMotorTemp;
         String comma = ", ";
-        String total = base + comma + arm + comma + forearm + comma + gripper;
+        String total = base + comma + arm + comma + forearm + comma + gripper + comma + leftMotor + comma + rightMotor;
         Serial.println(total);
     }
 

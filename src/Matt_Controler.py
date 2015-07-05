@@ -71,7 +71,7 @@ while not done:
 
     done = button(Button.A)
 
-    print axis(Axis.LTrigger)
+    # print axis(Axis.LTrigger)
 
     if button(Button.X) and gripper < 70:
         gripper += 1
@@ -82,27 +82,23 @@ while not done:
         base += axis(Axis.LThumbX) * 5
     if axis(Axis.LThumbX) <= -0.1 and base > 5:
         base += axis(Axis.LThumbX) * 5
-
     if axis(Axis.LThumbY) >= 0.1 and arm < 175:
         arm += axis(Axis.LThumbY) * 5
     if axis(Axis.LThumbY) <= -0.1 and arm > 5:
         arm += axis(Axis.LThumbY) * 5
-
     if axis(Axis.RThumbY) >= 0.1 and forearm < 175:
         forearm += axis(Axis.RThumbY) * 5
     if axis(Axis.RThumbY) <= -0.1 and forearm > 5:
         forearm += axis(Axis.RThumbY) * 5
-
-    # if axis(Axis.RTrigger) >= 0.1 and motor_speed < 255:
-    #     motor_speed += axis(Axis.RThumbY)*5
-    # if axis(Axis.RTrigger) <= -0.1 and motor_speed > 0:
-    #     motor_speed += axis(Axis.RThumbY)*5
+    leftMotor = (axis(Axis.LThumbY) + axis(Axis.LThumbX)) * 255
+    rightMotor = (axis(Axis.LThumbY) - axis(Axis.LThumbX)) * 255
 
 
     time.sleep(0.05)
-    # ser.write('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
-    # blue.send('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
-    # print '[%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(motor_speed))
+    # ser.write('[%d] [%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor)))
+    # blue.send('[%d] [%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor)))
+    print '[%d] [%d] [%d] [%d] [%d] [%d]' % (
+    int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor))
 joystick.quit()
 pygame.joystick.quit()
 pygame.quit()

@@ -21,20 +21,24 @@ class Axis:
     RThumbY = 4
     RTrigger = 5
 
-macAddr = '30:14:06:17:02:72'
-port = 1
 
-blue = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
-blue.connect((macAddr, port))
-print 'Bluetooth connection established.'
+bluetoothEnabled = False
+if bluetoothEnabled:
+    macAddr = '30:14:06:17:02:72'
+    port = 1
 
-# ser = serial.Serial('COM6', 9600, timeout=0.1)
+    blue = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
+    blue.connect((macAddr, port))
+    print 'Bluetooth connection established.'
+
+    # ser = serial.Serial('COM6', 9600, timeout=0.1)
 
 done = False
 base = 90
 arm = 90
 forearm = 90
 gripper = 25
+motor_speed = 0
 
 # Initialize joystick
 pygame.init()
@@ -61,6 +65,8 @@ while not done:
 
     done = button(Button.A)
 
+    print axis(Axis.RTrigger)
+
     if button(Button.X) and gripper < 70:
         gripper += 1
     elif button(Button.B) == 1 and gripper > 25:
@@ -81,10 +87,16 @@ while not done:
     if axis(Axis.RThumbY) <= -0.1 and forearm > 5:
         forearm += axis(Axis.RThumbY)*5
 
+    # if axis(Axis.RTrigger) >= 0.1 and motor_speed < 255:
+    #     motor_speed += axis(Axis.RThumbY)*5
+    # if axis(Axis.RTrigger) <= -0.1 and motor_speed > 0:
+    #     motor_speed += axis(Axis.RThumbY)*5
+
+
     time.sleep(0.05)
     # ser.write('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
-    blue.send('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
-
+    # blue.send('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
+    print '[%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(motor_speed))
 joystick.quit()
 pygame.joystick.quit()
 pygame.quit()

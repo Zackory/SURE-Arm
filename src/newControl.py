@@ -21,16 +21,13 @@ class Axis:
     RThumbY = 4
     RTrigger = 5
 
-
-bluetoothEnabled = False
+bluetoothEnabled = True
 if bluetoothEnabled:
     macAddr = '30:14:06:17:02:72'
     port = 1
-
     blue = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     blue.connect((macAddr, port))
     print 'Bluetooth connection established.'
-
     # ser = serial.Serial('COM6', 9600, timeout=0.1)
 
 done = False
@@ -38,7 +35,6 @@ base = 90
 arm = 90
 forearm = 90
 gripper = 25
-motor_speed = 0
 
 # Initialize joystick
 pygame.init()
@@ -63,40 +59,38 @@ while not done:
     # print [axis(i) for i in xrange(joystick.get_numaxes())]
     # print [hat(i) for i in xrange(joystick.get_numhats())]
 
-    done = button(Button.A)
+    done = button(Button.RBumper)
 
     print axis(Axis.RTrigger)
 
     if button(Button.X) and gripper < 70:
         gripper += 1
-    elif button(Button.B) == 1 and gripper > 25:
+    elif button(Button.B) and gripper > 25:
         gripper -= 1
 
-    if axis(Axis.LThumbX) >= 0.1 and base < 175:
-        base += axis(Axis.LThumbX)*5
-    if axis(Axis.LThumbX) <= -0.1 and base > 5:
-        base += axis(Axis.LThumbX)*5
+    if axis(Axis.RThumbX) >= 0.1 and base < 175:
+        base += axis(Axis.RThumbX)*5
+    if axis(Axis.RThumbX) <= -0.1 and base > 5:
+        base += axis(Axis.RThumbX)*5
 
-    if axis(Axis.LThumbY) >= 0.1 and arm < 175:
-        arm += axis(Axis.LThumbY)*5
-    if axis(Axis.LThumbY) <= -0.1 and arm > 5:
-        arm += axis(Axis.LThumbY)*5
+    if axis(Axis.RThumbY) >= 0.1 and arm < 175:
+        arm += axis(Axis.RThumbY)*5
+    if axis(Axis.RThumbY) <= -0.1 and arm > 5:
+        arm += axis(Axis.RThumbY)*5
 
-    if axis(Axis.RThumbY) >= 0.1 and forearm < 175:
+    if button(Button.Y) and forearm < 175:
         forearm += axis(Axis.RThumbY)*5
-    if axis(Axis.RThumbY) <= -0.1 and forearm > 5:
+    elif button(Button.A) and forearm > 5:
         forearm += axis(Axis.RThumbY)*5
 
-    # if axis(Axis.RTrigger) >= 0.1 and motor_speed < 255:
-    #     motor_speed += axis(Axis.RThumbY)*5
-    # if axis(Axis.RTrigger) <= -0.1 and motor_speed > 0:
-    #     motor_speed += axis(Axis.RThumbY)*5
-
+    leftMotor = axis(Axis.LThumbY)
+    rightMotor = axis(Axis.LThumbY)
 
     time.sleep(0.05)
     # ser.write('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
-    # blue.send('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))
-    print '[%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(motor_speed))
+    blue.send('[%d] [%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor)))
+    # print '[%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(motor_speed))
+
 joystick.quit()
 pygame.joystick.quit()
 pygame.quit()

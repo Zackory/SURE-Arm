@@ -83,8 +83,8 @@ while not done:
     elif button(Button.A) and forearm > 5:
         forearm += axis(Axis.RThumbY)*5
 
-    leftMotor = axis(Axis.LThumbY)
-    rightMotor = axis(Axis.LThumbY)
+    leftMotor = axis(Axis.LThumbY) + axis(Axis.LThumbX)
+    rightMotor = axis(Axis.LThumbY) - axis(Axis.LThumbX)
 
     time.sleep(0.05)
     # ser.write('[%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper)))

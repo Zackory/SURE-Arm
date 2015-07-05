@@ -14,7 +14,7 @@ int leftMotorPin = 5;
 int rightMotorPin = 9;
 int leftMotor = 0;
 int leftMotor_Cont_1= 2;
-int rightMotor_Cont_1= 4;
+int rightMotor_Cont_2= 4;
 int rightMotor = 0;
 
 void setup()

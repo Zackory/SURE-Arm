@@ -53,6 +53,10 @@ void loop()
             leftMotor = leftMotorTemp;
             digitalWrite(leftMotor_Cont_1, LOW);
             digitalWrite(leftMotor_Cont_2, HIGH);}
+        else if (leftMotorTemp < 0){
+            leftMotor = abs(leftMotorTemp);
+            digitalWrite(leftMotor_Cont_1, HIGH);
+            digitalWrite(leftMotor_Cont_2, LOW);}
         //if (leftMotor> 255)
         //    leftMotor = 255;
         if (rightMotorTemp > 0)

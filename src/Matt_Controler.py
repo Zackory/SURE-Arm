@@ -17,8 +17,8 @@ class Axis:
     LThumbX = 0
     LThumbY = 1
     LTrigger = 2
-    RThumbX = 3
-    RThumbY = 4
+    RThumbX = 4
+    RThumbY = 3
     RTrigger = 5
 
 
@@ -78,20 +78,20 @@ while not done:
     elif button(Button.B) == 1 and gripper > 25:
         gripper -= 1
 
-    if axis(Axis.LThumbX) >= 0.1 and base < 175:
-        base += axis(Axis.LThumbX) * 5
-    if axis(Axis.LThumbX) <= -0.1 and base > 5:
-        base += axis(Axis.LThumbX) * 5
-    if axis(Axis.LThumbY) >= 0.1 and arm < 175:
-        arm += axis(Axis.LThumbY) * 5
-    if axis(Axis.LThumbY) <= -0.1 and arm > 5:
-        arm += axis(Axis.LThumbY) * 5
-    if axis(Axis.RThumbY) >= 0.1 and forearm < 175:
-        forearm += axis(Axis.RThumbY) * 5
-    if axis(Axis.RThumbY) <= -0.1 and forearm > 5:
-        forearm += axis(Axis.RThumbY) * 5
-    leftMotor = (axis(Axis.LThumbY) + axis(Axis.LThumbX)) * 255
-    rightMotor = (axis(Axis.LThumbY) - axis(Axis.LThumbX)) * 255
+    if axis(Axis.RThumbX) >= 0.1 and base < 175:
+        base += axis(Axis.RThumbX) * 5
+    if axis(Axis.RThumbX) <= -0.1 and base > 5:
+        base += axis(Axis.RThumbX) * 5
+    if axis(Axis.RThumbY) >= 0.1 and arm < 175:
+        arm += axis(Axis.RThumbY) * 5
+    if axis(Axis.RThumbY) <= -0.1 and arm > 5:
+        arm += axis(Axis.RThumbY) * 5
+    if button(Button.RBumper) and forearm < 175:
+        forearm += 1
+    if button(Button.LBumper) and forearm > 5:
+        forearm -= 1
+    leftMotor = (axis(Axis.LThumbY) + axis(Axis.LThumbX)) * -255
+    rightMotor = (axis(Axis.LThumbY) - axis(Axis.LThumbX)) * -255
 
 
     time.sleep(0.05)

@@ -10,8 +10,8 @@ int arm = 90;
 int forearm = 90;
 int gripper = 25;
 
-int leftMotorPin = 9;
-int rightMotorPin = 5;
+int leftMotorPin = 5;
+int rightMotorPin = 9;
 int leftMotor = 0;
 int leftMotor_Cont_1= 2;
 int leftMotor_Cont_2= 4;

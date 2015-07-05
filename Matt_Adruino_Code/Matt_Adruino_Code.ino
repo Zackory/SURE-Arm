@@ -53,8 +53,8 @@ void loop()
             leftMotor = leftMotorTemp;
             digitalWrite(leftMotor_Cont_1, LOW);
             digitalWrite(leftMotor_Cont_2, HIGH);}
-        if (leftMotor> 255)
-            leftMotor = 255;
+        //if (leftMotor> 255)
+        //    leftMotor = 255;
         if (rightMotorTemp > 0)
             rightMotor = rightMotorTemp;
         String comma = ", ";

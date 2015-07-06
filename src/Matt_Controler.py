@@ -1,8 +1,8 @@
 import time
 import pygame
 # Requires PyBluez
-import bluetooth
-# import serial
+# import bluetooth
+import serial
 
 class Button:
     A = 0
@@ -30,8 +30,8 @@ if bluetoothEnabled:
     blue = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     blue.connect((macAddr, port))
     print 'Bluetooth connection established.'
-
-    # ser = serial.Serial('COM6', 9600, timeout=0.1)
+# Bluetooth Communication for Windows
+ser = serial.Serial('COM6', 9600, timeout=0.1)
 
 done = False
 base = 90
@@ -92,13 +92,28 @@ while not done:
         forearm -= 1
     leftMotor = (axis(Axis.LThumbY) + axis(Axis.LThumbX)) * -255
     rightMotor = (axis(Axis.LThumbY) - axis(Axis.LThumbX)) * -255
-
-
+    if leftMotor > 255:
+        leftMotor = 255
+    if leftMotor < -255:
+        leftMotor = -255
+    if rightMotor > 255:
+        rightMotor = 255
+    if rightMotor < -255:
+        rightMotor = -255
     time.sleep(0.05)
-    # ser.write('[%d] [%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor)))
+    ser.write('[%d] [%d] [%d] [%d] [%d] [%d]' % (
+    int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor)))
     # blue.send('[%d] [%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor)))
     print '[%d] [%d] [%d] [%d] [%d] [%d]' % (
     int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor))
+# Ends with left right motor at PWM value of 0
+leftMotor = 0
+rightMotor = 0
+print '[%d] [%d] [%d] [%d] [%d] [%d]' % (
+int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor))
+ser.write('[%d] [%d] [%d] [%d] [%d] [%d]' % (
+int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor)))
+# blue.send('[%d] [%d] [%d] [%d] [%d] [%d]' % (int(base), int(arm), int(forearm), int(gripper), int(leftMotor), int(rightMotor)))
 joystick.quit()
 pygame.joystick.quit()
 pygame.quit()

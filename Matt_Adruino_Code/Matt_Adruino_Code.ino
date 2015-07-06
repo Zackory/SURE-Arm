@@ -11,11 +11,13 @@ int forearm = 90;
 int gripper = 25;
 
 int leftMotorPin = 5;
-int rightMotorPin = 9;
+int rightMotorPin = 3;
 int leftMotor = 0;
 int leftMotor_Cont_1= 2;
 int leftMotor_Cont_2= 4;
 int rightMotor = 0;
+int rightMotor_Cont_1= 7;
+int rightMotor_Cont_2= 8;
 
 void setup()
 {
@@ -27,6 +29,8 @@ void setup()
     pinMode(leftMotorPin, OUTPUT);
     pinMode(leftMotor_Cont_1, OUTPUT);
     pinMode(leftMotor_Cont_2, OUTPUT);
+    pinMode(rightMotor_Cont_1, OUTPUT);
+    pinMode(rightMotor_Cont_2, OUTPUT);
     pinMode(rightMotorPin, OUTPUT);
 }
 
@@ -57,10 +61,14 @@ void loop()
             leftMotor = abs(leftMotorTemp);
             digitalWrite(leftMotor_Cont_1, HIGH);
             digitalWrite(leftMotor_Cont_2, LOW);}
-        //if (leftMotor> 255)
-        //    leftMotor = 255;
-        if (rightMotorTemp > 0)
+        if (rightMotorTemp > 0){
             rightMotor = rightMotorTemp;
+            digitalWrite(rightMotor_Cont_1, LOW);
+            digitalWrite(rightMotor_Cont_2, HIGH);}
+        else if (rightMotorTemp < 0){
+            rightMotor = abs(rightMotorTemp);
+            digitalWrite(rightMotor_Cont_1, HIGH);
+            digitalWrite(rightMotor_Cont_2, LOW);}
         String comma = ", ";
         String total = base + comma + arm + comma + forearm + comma + gripper + comma + leftMotor + comma + rightMotor;
         Serial.println(total);

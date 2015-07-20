@@ -34,9 +34,9 @@ if bluetoothEnabled:
 ser = serial.Serial('COM6', 9600, timeout=0.1)
 
 done = False
-base = 90
-arm = 90
-forearm = 90
+base = 110
+arm = 140
+forearm = 165
 gripper = 25
 motor_speed = 0
 
@@ -53,7 +53,7 @@ def button(i):
 
 
 def axis(i):
-    return joystick.get_axis(i)
+    return -joystick.get_axis(i)
 
 
 def hat(i):
@@ -78,13 +78,13 @@ while not done:
     elif button(Button.B) == 1 and gripper > 25:
         gripper -= 1
 
-    if axis(Axis.RThumbX) >= 0.1 and base < 175:
-        base += axis(Axis.RThumbX) * 5
-    if axis(Axis.RThumbX) <= -0.1 and base > 5:
-        base += axis(Axis.RThumbX) * 5
-    if axis(Axis.RThumbY) >= 0.1 and arm < 175:
+    if axis(Axis.RThumbX) >= 0.2 and base < 175:
+        base += axis(Axis.RThumbX) * 2
+    if axis(Axis.RThumbX) <= -0.2 and base > 5:
+        base += axis(Axis.RThumbX) * 2
+    if axis(Axis.RThumbY) >= 0.2 and arm < 175:
         arm += axis(Axis.RThumbY) * 5
-    if axis(Axis.RThumbY) <= -0.1 and arm > 5:
+    if axis(Axis.RThumbY) <= -0.2 and arm > 5:
         arm += axis(Axis.RThumbY) * 5
     if button(Button.RBumper) and forearm < 175:
         forearm += 1

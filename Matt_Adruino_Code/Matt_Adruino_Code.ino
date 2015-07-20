@@ -10,8 +10,8 @@ int arm = 90;
 int forearm = 90;
 int gripper = 25;
 
-int leftMotorPin = 5;
-int rightMotorPin = 3;
+//int leftMotorPin = 5;
+//int rightMotorPin = 3;
 int leftMotor = 0;
 int leftMotor_Cont_1= 2;
 int leftMotor_Cont_2= 4;
@@ -24,14 +24,14 @@ void setup()
     Serial.begin(9600);
     baseServo.attach(3);
     armServo.attach(6);
-    forearmServo.attach(10);
+    forearmServo.attach(5);
     gripperServo.attach(11);
-    pinMode(leftMotorPin, OUTPUT);
+    //pinMode(leftMotorPin, OUTPUT);
     pinMode(leftMotor_Cont_1, OUTPUT);
     pinMode(leftMotor_Cont_2, OUTPUT);
     pinMode(rightMotor_Cont_1, OUTPUT);
     pinMode(rightMotor_Cont_2, OUTPUT);
-    pinMode(rightMotorPin, OUTPUT);
+    //pinMode(rightMotorPin, OUTPUT);
 }
 
 void loop()
@@ -78,10 +78,10 @@ void loop()
     armServo.write(arm);
     forearmServo.write(forearm);
     gripperServo.write(gripper);
-    // delay(15);
+    delay(15);
 
     // Write to drive motors
-    analogWrite(leftMotorPin, leftMotor);
-    analogWrite(rightMotorPin, rightMotor);
+    //analogWrite(leftMotorPin, leftMotor);
+    //analogWrite(rightMotorPin, rightMotor);
 }
 

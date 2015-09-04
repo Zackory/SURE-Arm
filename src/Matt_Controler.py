@@ -31,7 +31,12 @@ if bluetoothEnabled:
     blue.connect((macAddr, port))
     print 'Bluetooth connection established.'
 # Bluetooth Communication for Windows
-ser = serial.Serial('COM6', 9600, timeout=0.1)
+bluetoothViaSerial = True
+if bluetoothViaSerial:
+    ser = serial.Serial('COM6', 9600, timeout=0.1)  # For bluetooth module
+Serial = False
+if Serial:
+    ser = serial.Serial('COM4', 9600, timeout=0.1)  # For hardwire connnection
 
 done = False
 base = 110
@@ -73,7 +78,7 @@ while not done:
 
     # print axis(Axis.LTrigger)
 
-    if button(Button.X) and gripper < 70:
+    if button(Button.X) and gripper < 75:
         gripper += 1
     elif button(Button.B) == 1 and gripper > 25:
         gripper -= 1
